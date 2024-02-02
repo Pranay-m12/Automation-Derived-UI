@@ -1,24 +1,9 @@
-<br>
-<br>
-<h6>Input 1 (Upload Assets File)</h6>
-<br>
 <div>
-  <input type="file" (change)="onFileSelected($event)" />
-or 
-  <input type="text" id="textInput" [(ngModel)]="enteredText" />
-  <button (click)="storeText()">Store Attributes</button>
+  <label for="input1">Input 1:</label>
+  <input type="text" id="input1" [(ngModel)]="enteredText" />
+
+  <label for="input2">Input 2:</label>
+  <input type="text" id="input2" [(ngModel)]="enteredText1" />
+
+  <button (click)="storeText()">Execute</button>
 </div>
-
-<br><br>
-<h6>Input 2 (Upload Derived Property File)</h6>
-<br>
-<div>
-  <input type="file" (change)="onFileSelected($event)" />
-  or 
-  <input type="text" id="textInput" [(ngModel)]="enteredText1" />
-  <button (click)="storeText1()">Store Derived Property</button>
-</div>
-
-<br>
-<button>Action</button>
-

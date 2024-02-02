@@ -5,11 +5,15 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ResultComponent } from './result/result.component';
+import { JsonComponent } from './json/json.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    ResultComponent,
+    JsonComponent,
    
   ],
   imports: [
