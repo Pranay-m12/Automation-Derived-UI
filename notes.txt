@@ -1,0 +1,10 @@
+Features of Angular
+
+Two way Data Binding - Model as single source of truth
+Directives
+MVC
+Dependency Injection
+Testing
+Routing
+Server-Side
+
