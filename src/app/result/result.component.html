@@ -1,5 +1,7 @@
 <div>
-    <label for="output">Output:</label>
-    <textarea id="output"  readonly></textarea>
-  </div>
+  <button (click)="Create_task()">Create task</button> 
+  <label for="output">Output:</label>
+  <textarea id="output"  readonly>{{output | json}}</textarea>
+  <ngx-monaco-diff-editor [options]="editorOptions" [original]="originalCode" [modified]="code"></ngx-monaco-diff-editor>
+</div>
   

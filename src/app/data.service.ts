@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
   private apiUrl = 'http://your-fastapi-backend-api-url';
 

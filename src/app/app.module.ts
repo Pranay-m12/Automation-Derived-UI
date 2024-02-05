@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ResultComponent } from './result/result.component';
 import { JsonComponent } from './json/json.component';
-
+import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +18,10 @@ import { JsonComponent } from './json/json.component';
   ],
   imports: [
     BrowserModule,
-    NgbModule,FormsModule, HttpClientModule
+    NgbModule,
+    FormsModule, 
+    HttpClientModule,
+    MonacoEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
