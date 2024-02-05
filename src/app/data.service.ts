@@ -7,11 +7,9 @@ import { Observable } from 'rxjs';
 })
 
 export class DataService {
-  private apiUrl = 'http://your-fastapi-backend-api-url';
+  private apiUrl = 'http://127.0.0.1:8000/';
 
   constructor(private http: HttpClient) {}
 
-  sendData(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/endpoint`, data);
-  }
+ 
 }

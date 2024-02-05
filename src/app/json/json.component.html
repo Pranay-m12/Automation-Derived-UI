@@ -1,15 +1,26 @@
 <div>
+  <div>
+    <label for="input1">Input 1:</label>
+    <input type="text" id="input1" placeholder="Enter Attributes" [(ngModel)]="enteredText" />
+  
+    <label for="input2">Input 2:</label>
+    <input type="text" id="input2" placeholder="Enter Dervied Property" [(ngModel)]="enteredText1" />
+  
+    <button (click)="onClickTest()">Execute</button>
+  </div>
+ 
     <table>
       <thead>
         <tr>
           <th>Fields</th>
-          <th>Orginal Output</th>
-          <th>Prediction</th>
-          <!-- Add more columns as needed -->
+          <th> Prediction</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Table rows will be populated dynamically -->
+      <tbody >
+        <tr *ngFor="let r of transformedJson">
+        <td>{{r.id}}</td>
+        <td><button id="tablebutton" *ngFor="let field of r.predicted; let i = index" [ngStyle]="{'background-color': i === 0 ? 'rgb(79, 242, 87)' : 'yellow'}">{{field}}</button></td>
+        </tr>
       </tbody>
     </table>
   </div>
