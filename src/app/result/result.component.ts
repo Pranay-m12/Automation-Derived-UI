@@ -24,8 +24,11 @@ export class ResultComponent {
   arr:Array<fieldArr>=[];
 
   Create_task(){
-    console.log(this.ss.FinalArray)
-    this.output={asset:"no:nym",rules:this.ss.transformedJsonfinal}
+    this.arr=[]
+    Object.keys(this.ss.FinalArray).forEach(key=>{
+      this.arr.push({id:key,candidate:{attribute:this.ss.FinalArray[key]},type:"find"})
+    })
+    this.output={asset:"no:nym",rules:this.arr}
   }
 
   copied(){
