@@ -1,7 +1,19 @@
-<div>
-  <button (click)="Create_task()">Create task</button> 
-  <label for="output">Output:</label>
-  <textarea id="output"  readonly>{{output | json}}</textarea>
-  <ngx-monaco-diff-editor [options]="editorOptions" [original]="originalCode" [modified]="code"></ngx-monaco-diff-editor>
+<div class="container">
+  <div class="row justify-content-center">
+    <button class="btn btn-primary taskcreate" (click)="Create_task()">Create task</button>
+  </div> 
+  <div class="row">
+    <div class="col ngx-json-viewer">
+      <ngx-json-viewer [json]="output"></ngx-json-viewer>
+    </div>
+    <div class="col textarea">
+      <button class="btn btn-secondary ngxClipboard" ngxClipboard [cbContent]="output | json"
+      (cbOnSuccess)="copied()">
+        Copy To Clipboard
+      </button>
+      <br/><br/>
+      <pre [innerHTML]="output | prettyjson: [true, 3]"></pre>
+    </div>
+  </div>
 </div>
   

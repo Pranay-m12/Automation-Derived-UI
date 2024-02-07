@@ -7,21 +7,24 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ResultComponent } from './result/result.component';
 import { JsonComponent } from './json/json.component';
-import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { ClipboardModule } from 'ngx-clipboard';
+import { PrettyJsonPipe } from './result/jsonPipe';
+
 @NgModule({
   declarations: [
     AppComponent,
- 
     ResultComponent,
     JsonComponent,
-   
+    PrettyJsonPipe
   ],
   imports: [
     BrowserModule,
     NgbModule,
     FormsModule, 
     HttpClientModule,
-    MonacoEditorModule
+    NgxJsonViewerModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
