@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Service } from '../services';
 import { HttpClient } from '@angular/common/http';
 import { async } from 'rxjs/internal/scheduler/async';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 interface result {  
   both: Number;  
@@ -112,9 +113,42 @@ export class JsonComponent {
     return arrays.reduce<any[]>((acc, current) => acc.concat(current || []), []).filter((value) => value !== undefined).filter((value, index, self) => self.indexOf(value) === index);
   
   }
+  showTextbox = true; // Initial state, showing textbox by default
 
-  
+  toggleView() {
+    this.showTextbox = !this.showTextbox; // Toggle the value
+  }
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.readFile(file).then((jsonContent: any) => {
+        console.log('JSON Content:', jsonContent);
+        // Handle your JSON content here
+      });
+    }
+  }
  
+  private readFile(file: File): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        try {
+          const jsonContent = JSON.parse(reader.result as string);
+          resolve(jsonContent);
+        } catch (error) {
+          reject('Error parsing JSON file');
+        }
+      };
+
+      reader.onerror = (e) => {
+        reject('Error reading file');
+      };
+
+      reader.readAsText(file);
+    });
+  }
   handleClick(field: string) {
     console.log('Clicked:', field);
     // Add more logic here based on your requirements

@@ -1,11 +1,22 @@
 <div>
   <div>
+    <div>
+      <br>
+      
+      <mat-slide-toggle (click)="toggleView()">JSON</mat-slide-toggle>
+    </div>
+    <div *ngIf="showTextbox" class="textbox">
     <label for="input1">Input 1:</label>
     <input type="text" id="input1" placeholder="Enter Attributes" [(ngModel)]="enteredText" />
-  
     <label for="input2">Input 2:</label>
     <input type="text" id="input2" placeholder="Enter Dervied Property" [(ngModel)]="enteredText1" />
-  
+   </div>
+   <div *ngIf="!showTextbox" class="json">
+    <label for="input1">Input 1 (Attributes):</label>
+    <input type="file" (change)="onFileSelected($event)" />
+    <label for="input2">Input 2 (Dervied):</label>
+    <input type="file" (change)="onFileSelected($event)" />
+   </div>
     <button (click)="onClickTest()">Execute</button>
   </div>
  

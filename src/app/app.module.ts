@@ -10,6 +10,8 @@ import { JsonComponent } from './json/json.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PrettyJsonPipe } from './result/jsonPipe';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PrettyJsonPipe } from './result/jsonPipe';
     FormsModule, 
     HttpClientModule,
     NgxJsonViewerModule,
-    ClipboardModule
+    ClipboardModule,
+    MatSlideToggleModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
