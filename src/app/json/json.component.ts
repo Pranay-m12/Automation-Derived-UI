@@ -26,7 +26,7 @@ export class JsonComponent {
   constructor(private httpClient: HttpClient,private ss: Service) {}
   anotherArray: { [id: string]: string[] } = {};
   clickedFields: Set<string> = new Set<string>();
- 
+  
   addToAnotherArray(id: string, field: string) {
     
     if (!this.anotherArray[id]) {
@@ -42,6 +42,7 @@ export class JsonComponent {
         this.anotherArray[itemId] = [predictedValue];
       }
     });
+    
     const index = this.anotherArray[id].indexOf(field);
     console.log(index);
     if (index !== -1) {
@@ -58,7 +59,11 @@ export class JsonComponent {
     } else {
       this.clickedFields.add(key);
     }
+    
+    this.ss.FinalArray=this.anotherArray;
+    console.log('fffinal',this.ss.FinalArray);
   }
+  
   isFieldClicked(id: string, field: string): boolean {
     return this.clickedFields.has(`${id}-${field}`);
   }
@@ -70,6 +75,7 @@ export class JsonComponent {
   //    this.addToAnotherArray(id,field);
   //    this.toggleButtonStatus(field1);
   // }
+ 
   async onClickTest() {
     console.log('Stored Derived Property:', this.enteredText1.split(","));
     console.log('Stored Attributes:', this.enteredText.split(","));
@@ -97,6 +103,7 @@ export class JsonComponent {
         console.log('Transformed JSON:', this.transformedJson);
         this.ss.transformedJsonfinal = this.transformedJson;
         console.log('final',this.ss.transformedJsonfinal);
+       
       },
       (error) => {
         console.log(error);
@@ -110,7 +117,7 @@ export class JsonComponent {
   
   
   
-
+ 
   handleClick(field: string) {
     console.log('Clicked:', field);
     // Add more logic here based on your requirements
