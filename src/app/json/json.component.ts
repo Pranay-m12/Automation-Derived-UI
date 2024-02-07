@@ -24,31 +24,17 @@ export class JsonComponent {
   firstFieldColor = 'green';
   otherFieldColor = 'yellow';
   constructor(private httpClient: HttpClient,private ss: Service) {}
-  anotherArray: { [id: string]: string[] } = {};
+  anotherArray: { [id: string]: string } = {};
   clickedFields: Set<string> = new Set<string>();
   
   addToAnotherArray(id: string, field: string) {
     
     if (!this.anotherArray[id]) {
-      this.anotherArray[id] = [];
+      this.anotherArray[id] = "";
     }
-    this.transformedJson.forEach((item: any) => {
-      const itemId = item.id; // Get the ID of the current item
-      
-      // Check if the item has a predicted value and it's not already stored in anotherArray
-      if (item.predicted && item.predicted.length > 0 && !this.anotherArray[itemId]) {
-        const predictedValue = item.predicted[0]; // Get the first predicted value
-        // Store the ID and predicted value in anotherArray for the current ID
-        this.anotherArray[itemId] = [predictedValue];
-      }
-    });
+  
     
-    const index = this.anotherArray[id].indexOf(field);
-    console.log(index);
-    if (index !== -1) {
-      this.anotherArray[id].splice(index, 1);
-    }
-    this.anotherArray[id].push(field);
+    this.anotherArray[id]=field;
 
 
     console.log('Updated anotherArray:', this.anotherArray);
@@ -66,6 +52,7 @@ export class JsonComponent {
   
   isFieldClicked(id: string, field: string): boolean {
     return this.clickedFields.has(`${id}-${field}`);
+
   }
   // toggleButtonStatus(field: any) {
   //   field.clicked = !field.clicked;
@@ -103,7 +90,18 @@ export class JsonComponent {
         console.log('Transformed JSON:', this.transformedJson);
         this.ss.transformedJsonfinal = this.transformedJson;
         console.log('final',this.ss.transformedJsonfinal);
-       
+        this.transformedJson.forEach((item: any) => {
+          const itemId = item.id; // Get the ID of the current item
+          
+          // Check if the item has a predicted value and it's not already stored in anotherArray
+          if (item.predicted && item.predicted.length > 0 && !this.anotherArray[itemId]) {
+            const predictedValue = item.predicted[0]; // Get the first predicted value
+            // Store the ID and predicted value in anotherArray for the current ID
+            this.anotherArray[itemId] = predictedValue;
+          }
+        });
+        this.ss.FinalArray=this.anotherArray;
+        console.log('fffinal1',this.ss.FinalArray);
       },
       (error) => {
         console.log(error);
@@ -112,10 +110,9 @@ export class JsonComponent {
   }
   private flattenAndFilterUndefined(arrays: (any[] | undefined)[]): any[] {
     return arrays.reduce<any[]>((acc, current) => acc.concat(current || []), []).filter((value) => value !== undefined).filter((value, index, self) => self.indexOf(value) === index);
-    ;
+  
   }
-  
-  
+
   
  
   handleClick(field: string) {
