@@ -30,9 +30,11 @@
       <tbody >
         <tr *ngFor="let r of transformedJson">
         <td>{{r.id}}</td>
-        <td><button id="tablebutton" *ngFor="let field of r.predicted; let i = index" [ngStyle]="{'background-color': isFieldClicked(r.id, field) ? 'rgb(79, 242, 87)' : (isFieldClicked(r.id, r.predicted[0]) ? 'yellow' : (i === 0 ? 'rgb(79, 242, 87)' : 'yellow'))}" (click)="addToAnotherArray(r.id, field)">{{field}}</button></td>
+        <td><button [ngClass]="['tablebutton',r.id,this.anotherArray[r.id]==field?'tablebutton-clicked':'tablebutton-notclicked']" *ngFor="let field of r.predicted; let i = index" (click)="addToAnotherArray(r.id, field)">{{field}}</button></td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- [ngStyle]="{'background-color': isFieldClicked(r.id, field) ? 'rgb(79, 242, 87)' : (isFieldClicked(r.id, r.predicted[0]) ? 'yellow' : (i === 0 ? 'rgb(79, 242, 87)' : 'yellow'))}" (click)="addToAnotherArray(r.id, field)" -->
   
