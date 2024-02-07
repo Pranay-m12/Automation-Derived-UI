@@ -1,22 +1,37 @@
 <div>
   <div>
-    <div>
-      <br>
-      
-      <mat-slide-toggle (click)="toggleView()">JSON</mat-slide-toggle>
+    <br>
+    <mat-slide-toggle (click)="toggleView()">JSON</mat-slide-toggle>
+    <br>
+    <div class="col">
+      <select class="form-select" #asset aria-label="Default select example" (change)="changeAsset((asset.value))">
+        <option value="" selected>Open this select menu</option>
+        <option value="no:nyh">no:nyh</option>
+        <option value="can:lng">can:lng</option>
+        <option value="no:ol">no:ol</option>
+        <option value="can:sct">can:sct</option>
+      </select>
     </div>
-    <div *ngIf="showTextbox" class="textbox">
-    <label for="input1">Input 1:</label>
-    <input type="text" id="input1" placeholder="Enter Attributes" [(ngModel)]="enteredText" />
-    <label for="input2">Input 2:</label>
-    <input type="text" id="input2" placeholder="Enter Dervied Property" [(ngModel)]="enteredText1" />
-   </div>
-   <div *ngIf="!showTextbox" class="json">
-    <label for="input1">Input 1 (Attributes):</label>
-    <input type="file" (change)="onFileSelected($event)" />
-    <label for="input2">Input 2 (Dervied):</label>
-    <input type="file" (change)="onFileSelected($event)" />
-   </div>
+    <div *ngIf="showTextbox" class="textbox row">
+      <div class="col">
+        <label for="input1">Input 1:</label>
+        <input type="text" id="input1" placeholder="Enter Attributes" [(ngModel)]="enteredText" />
+      </div>
+      <div class="col">
+        <label for="input2">Input 2:</label>
+        <input type="text" id="input2" placeholder="Enter Dervied Property" [(ngModel)]="enteredText1" />  
+      </div>
+    </div>
+    <div *ngIf="!showTextbox" class="json row">
+      <div class="col">
+        <label for="input1">Input 1 (Attributes):</label>
+        <input type="file" (change)="onFileSelected($event)" />
+      </div>
+      <div class="col">
+        <label for="input2">Input 2 (Dervied):</label>
+        <input type="file" (change)="onFileSelected($event)" />  
+      </div>
+    </div>
     <button (click)="onClickTest()">Execute</button>
   </div>
  

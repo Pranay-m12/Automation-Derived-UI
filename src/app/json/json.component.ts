@@ -154,5 +154,12 @@ export class JsonComponent {
     console.log('Clicked:', field);
     // Add more logic here based on your requirements
   }
+
+  changeAsset(asset:string){
+    console.log(asset)
+    this.ss.assetName=asset
+    console.log(this.ss.assetName)
+  }
+
   }
 

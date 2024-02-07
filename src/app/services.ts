@@ -6,4 +6,5 @@ import { Injectable } from '@angular/core';
 export class Service {
   transformedJsonfinal: any[] = [];
   FinalArray: { [id: string]: string } = {};
+  assetName:string="";
 }
