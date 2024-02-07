@@ -19,16 +19,17 @@ export class ResultComponent {
   editorOptions = {theme: 'vs-dark', language: 'javascript'};
   code: string = 'function x() {\nconsole.log("Hello world!");\n}';
   originalCode: string = 'function x() { // TODO }';
+  asset:string="no:nyh";
 
-  output!:OutputSchema;
+  output:OutputSchema={asset:this.asset,rules:[]};
   arr:Array<fieldArr>=[];
 
   Create_task(){
     this.arr=[]
     Object.keys(this.ss.FinalArray).forEach(key=>{
-      this.arr.push({id:key,candidate:{attribute:this.ss.FinalArray[key]},type:"find"})
+      this.arr.push({id:key.trim(),candidate:{attribute:this.ss.FinalArray[key].trim()},type:"find"})
     })
-    this.output={asset:"no:nym",rules:this.arr}
+    this.output={asset:this.asset,rules:this.arr}
   }
 
   copied(){
