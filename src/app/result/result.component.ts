@@ -21,9 +21,6 @@ export class ResultComponent {
   originalCode: string = 'function x() { // TODO }';
   
   input:{[id:string]:string}={
-    "tag":"tagno",
-    "plantidx":"plantcode",
-    "vuemdbfile":"Vuemdbfile"
   }
 
   outputTxt:string="";
@@ -32,6 +29,7 @@ export class ResultComponent {
 
   Create_task(){
     this.arr=[]
+    this.input= this.ss.FinalArray;
     Object.keys(this.input).forEach(key=>{
       this.arr.push({id:key,candidate:{attribute:this.input[key]},type:"find"})
     })
