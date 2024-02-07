@@ -17,10 +17,18 @@
   margin: 5px 0;
 }
 .ngxClipboard{
-  margin-left: auto;
+  width: 40%;
 }
 pre {
   font-weight: 400;
+  font-size: 1em;
+  font-family: monospace;
+  .key{
+    color: #4E187C;
+  }
+  .string{
+    color: #FF6B6B;
+  }
 
   /* .number-line {
     color: black;
@@ -41,3 +49,5 @@ pre {
     color: #fff;
   } */
 }
+
+

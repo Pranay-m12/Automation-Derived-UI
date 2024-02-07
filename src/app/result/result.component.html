@@ -7,12 +7,15 @@
       <ngx-json-viewer [json]="output"></ngx-json-viewer>
     </div>
     <div class="col textarea">
-      <button class="btn btn-secondary ngxClipboard" ngxClipboard [cbContent]="output | json"
-      (cbOnSuccess)="copied()">
-        Copy To Clipboard
-      </button>
-      <br/><br/>
-      <pre [innerHTML]="output | prettyjson: [true, 3]"></pre>
+      <div class="row" style="justify-content: right;padding: 0 5px;">
+        <button class="btn btn-secondary ngxClipboard" ngxClipboard [cbContent]="output | json"
+          (cbOnSuccess)="copied()">
+          <i class="bi bi-copy"></i>Copy to Clipboard
+        </button>
+      </div>
+      <div class="row">
+        <pre [innerHTML]="output | prettyjson: [true, 3]"></pre>
+      </div>
     </div>
   </div>
 </div>
