@@ -24,6 +24,7 @@ export class ResultComponent {
   arr:Array<fieldArr>=[];
 
   Create_task(){
+    console.log(this.ss.FinalArray)
     this.output={asset:"no:nym",rules:this.ss.transformedJsonfinal}
   }
 
