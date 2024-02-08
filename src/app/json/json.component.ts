@@ -125,7 +125,22 @@ export class JsonComponent {
     if (file) {
       this.readFile(file).then((jsonContent: any) => {
         console.log('JSON Content:', jsonContent);
-        // Handle your JSON content here
+        const attributes = jsonContent.Document['no:nyh'].attributes;
+        this.enteredText=attributes.toString();
+        console.log(this.enteredText);
+      });
+    }
+  }
+
+  onFileSelected1(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.readFile(file).then((jsonContent: any) => {
+        console.log('JSON Content:', jsonContent);
+        const attributes = jsonContent.derived;
+        this.enteredText1=attributes.toString();
+        console.log(this.enteredText1);
       });
     }
   }
