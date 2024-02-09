@@ -22,6 +22,8 @@ export class JsonComponent {
   data: any = '';
   originalJson: any = '';
   transformedJson: any = '';
+  searchtransformedJson:any='';
+  searchFieldBool:boolean=true;
   firstFieldColor = 'green';
   otherFieldColor = 'yellow';
   constructor(private httpClient: HttpClient,private ss: Service) {}
@@ -91,6 +93,7 @@ export class JsonComponent {
         }));
         console.log('Transformed JSON:', this.transformedJson);
         this.ss.transformedJsonfinal = this.transformedJson;
+        this.searchtransformedJson=this.transformedJson
         console.log('final',this.ss.transformedJsonfinal);
         this.transformedJson.forEach((item: any) => {
           const itemId = item.id; // Get the ID of the current item
@@ -176,5 +179,25 @@ export class JsonComponent {
     console.log(this.ss.assetName)
   }
 
+  toggleSearch(){
+    this.searchFieldBool=!this.searchFieldBool;
   }
+
+  searchField(searchName:string,field:boolean){
+    if (field){
+      this.searchtransformedJson=this.transformedJson.filter((x:any)=>x.id.includes(searchName))
+    }else{
+      this.searchtransformedJson=this.transformedJson.filter((x:any)=>{
+        for (let attr in x.predicted){
+          if (x.predicted[attr].includes(searchName)){
+            return true
+          }
+        }
+        return false
+      })
+    }
+  }
+
+  }
+
 
