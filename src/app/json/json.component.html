@@ -34,6 +34,7 @@
     </div>
     <button (click)="onClickTest()" style="width: 100%;">Execute</button>
   </div>
+
   <div style="width: 100%;">
     <div style="width: 80%;">
       <mat-slide-toggle (click)="toggleSearch()" style="margin-left: auto;">
@@ -44,12 +45,14 @@
     <table>
       <thead>
         <tr>
+          <th></th>
           <th>Fields</th>
           <th> Prediction</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let r of searchtransformedJson"  [ngStyle]="{'background-color': r.predicted.length==0 ? 'rgba(233, 84, 84, 0.808)':''}">
+          <td><input type="checkbox" checked/></td>
           <td>{{r.id}}</td>
           <td><button [ngClass]="['tablebutton',r.id,this.anotherArray[r.id]==field?'tablebutton-clicked':'tablebutton-notclicked']" *ngFor="let field of r.predicted; let i = index" (click)="addToAnotherArray(r.id, field)">{{field}}</button></td>
         </tr>
