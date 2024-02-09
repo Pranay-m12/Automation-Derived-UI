@@ -14,22 +14,22 @@
     </div>
     <div *ngIf="showTextbox" class="textbox row">
       <div class="col">
-        <label for="input1">Input 1:</label>
+        <label for="input1">Enter Attributes:</label>
         <input type="text" id="input1" placeholder="Enter Attributes" [(ngModel)]="enteredText" />
       </div>
       <div class="col">
-        <label for="input2">Input 2:</label>
+        <label for="input2">Enter Derived Property:</label>
         <input type="text" id="input2" placeholder="Enter Dervied Property" [(ngModel)]="enteredText1" />  
       </div>
     </div>
     <div *ngIf="!showTextbox" class="json row">
       <div class="col">
-        <label for="input1">Input 1 (Attributes):</label>
+        <label for="input1">(Attributes):</label>
         <input type="file" (change)="onFileSelected($event)" />
       </div>
       <div class="col">
-        <label for="input2">Input 2 (Dervied):</label>
-        <input type="file" (change)="onFileSelected($event)" />  
+        <label for="input2">(Dervied):</label>
+        <input type="file" (change)="onFileSelected1($event)" />  
       </div>
     </div>
     <button (click)="onClickTest()">Execute</button>
