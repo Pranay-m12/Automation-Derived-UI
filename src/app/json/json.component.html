@@ -48,13 +48,24 @@
           <th></th>
           <th>Fields</th>
           <th> Prediction</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let r of searchtransformedJson"  [ngStyle]="{'background-color': r.predicted.length==0 ? 'rgba(233, 84, 84, 0.808)':''}">
-          <td><input type="checkbox" checked/></td>
-          <td>{{r.id}}</td>
-          <td><button [ngClass]="['tablebutton',r.id,this.anotherArray[r.id]==field?'tablebutton-clicked':'tablebutton-notclicked']" *ngFor="let field of r.predicted; let i = index" (click)="addToAnotherArray(r.id, field)">{{field}}</button></td>
+          <td><input type="checkbox" [checked]="!uncheckedCheckboxes[r.id]" (change)="toggleCheckbox(r.id)"/></td>
+          <td>  <ng-container *ngIf="!r.editMode">{{r.id}}</ng-container>
+            <input *ngIf="r.editMode" type="text" [(ngModel)]="r.id"/></td>
+          <td> <ng-container *ngIf="!r.editMode">
+            <button [ngClass]="['tablebutton',r.id,this.anotherArray[r.id]==field?'tablebutton-clicked':'tablebutton-notclicked']" 
+              *ngFor="let field of r.predicted; let i = index" 
+              (click)="addToAnotherArray(r.id, field)">
+              {{field}}</button>
+          </ng-container>
+          <input *ngIf="r.editMode" type="text" [(ngModel)]="r.predicted[0]"/></td>
+          <td>
+            <button (click)="toggleEditMode(r)">{{ r.editMode ? 'Done' : 'Edit' }}</button>
+          </td>
         </tr>
       </tbody>
     </table>

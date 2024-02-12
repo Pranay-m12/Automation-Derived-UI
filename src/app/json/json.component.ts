@@ -28,7 +28,27 @@ export class JsonComponent {
   otherFieldColor = 'yellow';
   constructor(private httpClient: HttpClient,private ss: Service) {}
   anotherArray: { [id: string]: string } = {};
+  uncheckedCheckboxes:  { [id: string]: string } = {};
   clickedFields: Set<string> = new Set<string>();
+  editField(id: string) {
+    
+    const item = this.searchtransformedJson.find((element: any) => element.id === id);
+  
+    if (item) {
+
+      console.log('Editing item:', item);
+
+      const fieldsToEdit = item.id; 
+      console.log('Edit fields:', fieldsToEdit);
+  
+    
+      const predictionToEdit = item.predicted[0]; 
+      console.log('Edit prediction:', predictionToEdit);
+
+    } else {
+      console.log('Item not found for ID:', id);
+    }
+  }
   
   addToAnotherArray(id: string, field: string) {
     
@@ -38,6 +58,7 @@ export class JsonComponent {
   
     
     this.anotherArray[id]=field;
+
 
 
     console.log('Updated anotherArray:', this.anotherArray);
@@ -66,7 +87,32 @@ export class JsonComponent {
   //    this.addToAnotherArray(id,field);
   //    this.toggleButtonStatus(field1);
   // }
- 
+  toggleEditMode(row: any) {
+    row.editMode = !row.editMode; 
+    if (!row.editMode) {
+      
+      const index = this.transformedJson.findIndex((element: any) => element.id === row.id);
+      if (index !== -1) {
+        const s = this.transformedJson[index].id;
+        this.transformedJson[index].id = row.id;
+        this.transformedJson[index].predicted[0] = row.predicted[0];
+        //this.updatearray(this.transformedJson);
+        }
+    }
+  }
+  toggleCheckbox(id: string) {
+    // If the checkbox is checked, remove its ID from uncheckedCheckboxes
+    if (!this.uncheckedCheckboxes[id]) {
+      delete this.uncheckedCheckboxes[id];
+    } else {
+      // If the checkbox is unchecked, add its ID to uncheckedCheckboxes
+      this.uncheckedCheckboxes[id] = this.anotherArray[id];
+      delete this.anotherArray[id];
+
+    }
+    console.log('Updated anotherArray:', this.anotherArray);
+    console.log('Updated uncheckedCheckboxes:', this.uncheckedCheckboxes);
+  }
   async onClickTest() {
     console.log('Stored Derived Property:', this.enteredText1.split(","));
     console.log('Stored Attributes:', this.enteredText.split(","));
@@ -82,7 +128,7 @@ export class JsonComponent {
         this.data = response;
         console.log('data', this.data);
     
-        // Transform data and log transformedJson
+       
         this.transformedJson = Object.keys(this.data).map((key) => ({
           id: key,
           predicted: this.flattenAndFilterUndefined([
@@ -93,42 +139,54 @@ export class JsonComponent {
         }));
         console.log('Transformed JSON:', this.transformedJson);
         this.ss.transformedJsonfinal = this.transformedJson;
-        this.searchtransformedJson=this.transformedJson
+        this.searchtransformedJson=this.transformedJson;
         console.log('final',this.ss.transformedJsonfinal);
-        this.transformedJson.forEach((item: any) => {
-          const itemId = item.id; // Get the ID of the current item
-          
-          // Check if the item has a predicted value and it's not already stored in anotherArray
-          if (item.predicted && item.predicted.length > 0 && !this.anotherArray[itemId]) {
-            const predictedValue = item.predicted[0]; // Get the first predicted value
-            // Store the ID and predicted value in anotherArray for the current ID
-            this.anotherArray[itemId] = predictedValue;
-          }
-        });
-        this.ss.FinalArray=this.anotherArray;
-        console.log('fffinal1',this.ss.FinalArray);
+        this.updatearray(this.transformedJson);
       },
       (error) => {
         console.log(error);
       }
     );
   }
+  private updatearray(transformedJson:any){
+    transformedJson.forEach((item: any) => {
+      const itemId = item.id; 
+      
+      
+      if (item.predicted && item.predicted.length > 0 && !this.anotherArray[itemId]) {
+        const predictedValue = item.predicted[0]; 
+        this.anotherArray[itemId] = predictedValue;
+      }
+    });
+    this.ss.FinalArray=this.anotherArray;
+    console.log('fffinal1',this.ss.FinalArray);
+  }
   private flattenAndFilterUndefined(arrays: (any[] | undefined)[]): any[] {
     return arrays.reduce<any[]>((acc, current) => acc.concat(current || []), []).filter((value) => value !== undefined).filter((value, index, self) => self.indexOf(value) === index);
   
   }
-  showTextbox = true; // Initial state, showing textbox by default
+  showTextbox = true;
 
   toggleView() {
-    this.showTextbox = !this.showTextbox; // Toggle the value
+    this.showTextbox = !this.showTextbox; 
   }
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
 
     if (file) {
+      
+        let matchedString:string = '';
       this.readFile(file).then((jsonContent: any) => {
         console.log('JSON Content:', jsonContent);
-        const attributes = jsonContent.Document['no:nyh'].attributes;
+        const jsonString: string = JSON.stringify(jsonContent);
+        const regexPattern: RegExp = /Document\":{\"([^\"]+)/;
+        const matches: RegExpMatchArray | null = jsonString.match(regexPattern);
+        if (matches !== null) {
+           matchedString = matches[1];
+           console.log("match",matchedString);
+        }
+        console.log('JSON Content String:', jsonString);
+        const attributes = jsonContent.Document[matchedString].attributes;
         this.enteredText=attributes.toString();
         console.log(this.enteredText);
       });
@@ -170,7 +228,6 @@ export class JsonComponent {
   }
   handleClick(field: string) {
     console.log('Clicked:', field);
-    // Add more logic here based on your requirements
   }
 
   changeAsset(asset:string){
