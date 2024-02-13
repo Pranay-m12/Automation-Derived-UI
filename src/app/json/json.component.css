@@ -43,6 +43,23 @@
     background: white;
     border: 1px solid rgb(79, 242, 87);
   }
+  .vertical-tab-group {
+    display: flex;
+    flex-direction: column;
+    height: 400px; /* Set a fixed height or adjust as needed */
+  }
+  
+  .mat-tab-label {
+    transform: rotate(-90deg); /* Rotate the tab labels vertically */
+    transform-origin: left center; /* Set the rotation origin */
+    width: 40px; /* Set a width for the tab labels */
+    white-space: nowrap; /* Prevent text wrapping */
+    margin-bottom: 8px; /* Add some space between tabs */
+  }
+  
+  .mat-tab-body-wrapper {
+    flex: 1; /* Allow the content to take up remaining space */
+  }
   
   .button:hover {
     background-color: #0056b3;

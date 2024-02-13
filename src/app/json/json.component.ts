@@ -3,6 +3,7 @@ import { Service } from '../services';
 import { HttpClient } from '@angular/common/http';
 import { async } from 'rxjs/internal/scheduler/async';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import * as XLSX from 'xlsx';
 
 interface result {  
   both: Number;  
@@ -33,6 +34,36 @@ export class JsonComponent {
   uncheckedCheckboxes:  { [id: string]: string } = {};
   extractPatterns:{[id:string]:any}={};
   clickedFields: Set<string> = new Set<string>();
+  onFileSelected2(event: any): void {
+    const file: File = event.target.files[0];
+    const reader: FileReader = new FileReader();
+
+    reader.onload = (e: any) => {
+      const data: ArrayBuffer = e.target.result;
+      const workbook: XLSX.WorkBook = XLSX.read(data, { type: 'array' });
+      const sheetName: string = workbook.SheetNames[0];
+      const worksheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
+      const headers: string[] = [];
+      
+  
+      if (worksheet['!ref']) {
+        const range: XLSX.Range = XLSX.utils.decode_range(worksheet['!ref']);
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          const cellAddress = { c: C, r: range.s.r };
+          const cellRef = XLSX.utils.encode_cell(cellAddress);
+          headers.push(worksheet[cellRef].w);
+        }
+        console.log('Headers:', headers);
+        const headersString: string = headers.join(', '); 
+        this.attributes=headersString;
+        console.log('Headers:',  this.attributes);
+      } else {
+        console.error('Worksheet range is undefined');
+      }
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
 
   editField(id: string) {
     const item = this.searchtransformedJson.find((element: any) => element.id === id);
