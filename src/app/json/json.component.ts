@@ -17,8 +17,10 @@ interface result {
 })
 
 export class JsonComponent {
-  enteredText: string = '';
-  enteredText1: string = '';
+  attributes: string = 'discipline_code,creation_date,handover_required,revision_date,company_name,cmpy_seq_nr,document_description_240,status_code,title,percentage_complete,publish_file,subclass_code,maintained_by,subclass_type_description,sucl_seq_nr,publication_file,handover_completed,RHLLEGDOC,document_url,document_nr,TITLE,subclass_description,proj_seq_nr,description,is_latest,latest_rev_creation_date,email_attachment_list,document_type_select,actual_start_month,clas_seq_nr,asst_seq_nr,publication_file_required,asset_code,RHLPROJECT,revision_creation_date_month,pk_seq_nr,class_code,document_remarks,docs_seq_nr,created_by,DOCUMENT_NUMBER,actual_start_date,doty_seq_nr,active_ind,default_asst_seq_nr,checked_out_ind,project_code,latest_revision_code,revision_creation_date_week,company_code,dost_seq_nr,latest_change_date_pub_file,revision_code,has_rev_outstanding_ce_copy,actual_start_date_week,last_refresh_date,revision_order,source_file_required,suty_seq_nr,discipline_description,latest_rev_creation_date_print,project_title,originator,source_file,actual_start_date_print,disc_seq_nr,actual_start_week,status_description,reco_seq_nr,class_description,asset_description,latest_dore_seq_nr,maintenance_date,company_document_nr,free_text_ind,subclass_type_code,document_type,document_type_description,latest_change_date_subq,latest_rev_creation_date_slt,swp_parent_string,dore_seq_nr,in_maintenance  ';
+  fields: string = 'documentStatusCode,documentType,publishFile,isLatest,k2Handle, isActive,title,isCheckedOut,isLive,revision,project,documentStatusDescription,disciplineDescription,revisionFileName,revisionDate,plantCode,latestChangeDateSubq,discipline,dataStore,documentTypeDescription,externalLink,description  ';
+  source:string = 'no:nhy';
+  type:string = 'Document';
   data: any = '';
   originalJson: any = '';
   transformedJson: any = '';
@@ -30,28 +32,22 @@ export class JsonComponent {
   anotherArray: { [id: string]: string } = {};
   uncheckedCheckboxes:  { [id: string]: string } = {};
   clickedFields: Set<string> = new Set<string>();
+
   editField(id: string) {
-    
     const item = this.searchtransformedJson.find((element: any) => element.id === id);
-  
     if (item) {
-
       console.log('Editing item:', item);
-
       const fieldsToEdit = item.id; 
       console.log('Edit fields:', fieldsToEdit);
-  
-    
       const predictionToEdit = item.predicted[0]; 
       console.log('Edit prediction:', predictionToEdit);
-
     } else {
       console.log('Item not found for ID:', id);
     }
   }
   
   addToAnotherArray(id: string, field: string) {
-    
+
     if (!this.anotherArray[id]) {
       this.anotherArray[id] = "";
     }
@@ -87,7 +83,7 @@ export class JsonComponent {
   //    this.addToAnotherArray(id,field);
   //    this.toggleButtonStatus(field1);
   // }
-  toggleEditMode(row: any) {
+  toggleEditMode(row: any, i: any) {
     row.editMode = !row.editMode; 
     if (!row.editMode) {
       
@@ -95,34 +91,41 @@ export class JsonComponent {
       if (index !== -1) {
         const s = this.transformedJson[index].id;
         this.transformedJson[index].id = row.id;
-        this.transformedJson[index].predicted[0] = row.predicted[0];
+        console.log(i)
+        console.log(this.transformedJson[index].predicted[i])
+        this.transformedJson[index].predicted[i] = row.predicted[i];
         //this.updatearray(this.transformedJson);
         }
     }
   }
+
   toggleCheckbox(id: string) {
+    console.log(!this.uncheckedCheckboxes[id])
     // If the checkbox is checked, remove its ID from uncheckedCheckboxes
-    if (!this.uncheckedCheckboxes[id]) {
+    if (this.uncheckedCheckboxes[id]) {
+      this.anotherArray[id]=this.uncheckedCheckboxes[id];
       delete this.uncheckedCheckboxes[id];
     } else {
       // If the checkbox is unchecked, add its ID to uncheckedCheckboxes
       this.uncheckedCheckboxes[id] = this.anotherArray[id];
       delete this.anotherArray[id];
-
     }
+    this.ss.FinalArray=this.anotherArray
+    this.ss.uncheckedJsonFinal=this.uncheckedCheckboxes
     console.log('Updated anotherArray:', this.anotherArray);
     console.log('Updated uncheckedCheckboxes:', this.uncheckedCheckboxes);
   }
+
   async onClickTest() {
-    console.log('Stored Derived Property:', this.enteredText1.split(","));
-    console.log('Stored Attributes:', this.enteredText.split(","));
+    console.log('Stored Derived Property:', this.fields.split(","));
+    console.log('Stored Attributes:', this.attributes.split(","));
 
+    this.ss.assetName=this.source;
+    this.ss.dataType=this.type;
     const test = {
-      "fields": this.enteredText1.split(","),
-      "attributes": this.enteredText.split(",")
+      "fields": this.fields.split(","),
+      "attributes": this.attributes.split(",")
     };
-  
-
     await this.httpClient.post('http://127.0.0.1:8000/', test).subscribe(
       (response) => {
         this.data = response;
@@ -187,8 +190,8 @@ export class JsonComponent {
         }
         console.log('JSON Content String:', jsonString);
         const attributes = jsonContent.Document[matchedString].attributes;
-        this.enteredText=attributes.toString();
-        console.log(this.enteredText);
+        this.attributes=attributes.toString();
+        console.log(this.attributes);
       });
     }
   }
@@ -200,8 +203,8 @@ export class JsonComponent {
       this.readFile(file).then((jsonContent: any) => {
         console.log('JSON Content:', jsonContent);
         const attributes = jsonContent.derived;
-        this.enteredText1=attributes.toString();
-        console.log(this.enteredText1);
+        this.fields=attributes.toString();
+        console.log(this.fields);
       });
     }
   }

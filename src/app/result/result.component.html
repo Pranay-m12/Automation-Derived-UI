@@ -11,19 +11,30 @@
         </button>
       </div>
       <div class="row">
-        <ngx-json-viewer [json]="output"></ngx-json-viewer>
+        <ngx-json-viewer [json]="derivedOutput"></ngx-json-viewer>
       </div>
     </div>
     <div class="col textarea">
       <div class="row" style="justify-content: right;padding: 0 5px;">
-        <button class="btn btn-secondary ngxClipboard" ngxClipboard [cbContent]="output | json"
+        <button class="btn btn-secondary ngxClipboard" ngxClipboard [cbContent]="derivedOutput | json"
           (cbOnSuccess)="copied()">
           <i class="bi bi-copy"></i>Copy to Clipboard
         </button>
       </div>
       <div class="row">
-        <pre [innerHTML]="output | prettyjson: [true, 3]"></pre>
+        <pre [innerHTML]="derivedOutput | prettyjson: [true, 3]"></pre>
       </div>
+    </div>
+  </div>
+  <div class="row textarea2">
+    <div class="row" style="justify-content: right;padding: 0 5px;">
+      <button class="btn btn-secondary ngxClipboard" ngxClipboard [cbContent]="otherOutput | json"
+        (cbOnSuccess)="copied()">
+        <i class="bi bi-copy"></i>Copy to Clipboard
+      </button>
+    </div>
+    <div class="row">
+      <pre [innerHTML]="otherOutput | prettyjson: [true, 3]"></pre>
     </div>
   </div>
 </div>

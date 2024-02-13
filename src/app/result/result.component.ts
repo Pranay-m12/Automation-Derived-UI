@@ -5,9 +5,17 @@ interface fieldArr{
   candidate:{[attributes:string]:string}
   type:string,
 }
-interface OutputSchema{
-  asset:string,
+interface DerivedOutputSchema{
+  source:string,
+  type:string,
   rules:Array<fieldArr>
+}
+
+interface OtherOutputSchema{
+  id:string,
+  source:string,
+  type:string,
+  derive:string
 }
 @Component({
   selector: 'app-result',
@@ -20,17 +28,26 @@ export class ResultComponent {
   code: string = 'function x() {\nconsole.log("Hello world!");\n}';
   originalCode: string = 'function x() { // TODO }';
   asset:string="";
+  type:string="";
 
-  output:OutputSchema={asset:this.asset,rules:[]};
+  derivedOutput!:DerivedOutputSchema;
+  otherOutput:Array<OtherOutputSchema>=[];
   arr:Array<fieldArr>=[];
 
   Create_task(){
     this.asset=this.ss.assetName
+    this.type=this.ss.dataType
     this.arr=[]
     Object.keys(this.ss.FinalArray).forEach(key=>{
       this.arr.push({id:key.trim(),candidate:{attribute:this.ss.FinalArray[key].trim()},type:"find"})
     })
-    this.output={asset:this.asset,rules:this.arr}
+    this.derivedOutput={source:this.asset,type:this.type,rules:this.arr}
+
+    //For other output
+    this.otherOutput=[]
+    Object.keys(this.ss.uncheckedJsonFinal).forEach(key=>{
+      this.otherOutput.push({id:key.trim(),source:this.asset,type:this.type,derive:this.ss.uncheckedJsonFinal[key].trim()})
+    })
   }
 
   copied(){
