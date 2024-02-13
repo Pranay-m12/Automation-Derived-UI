@@ -31,6 +31,7 @@ export class JsonComponent {
   constructor(private httpClient: HttpClient,private ss: Service) {}
   anotherArray: { [id: string]: string } = {};
   uncheckedCheckboxes:  { [id: string]: string } = {};
+  extractPatterns:{[id:string]:any}={};
   clickedFields: Set<string> = new Set<string>();
 
   editField(id: string) {
@@ -48,27 +49,35 @@ export class JsonComponent {
   
   addToAnotherArray(id: string, field: string) {
 
-    if (!this.anotherArray[id]) {
-      this.anotherArray[id] = "";
+    if (this.anotherArray[id]){
+      this.anotherArray[id]=field;
+      console.log('Updated anotherArray:', this.anotherArray);
+      console.log('Clicked field',id)
+
+      const key = `${id}-${field}`;
+      if (this.clickedFields.has(key)) {
+        this.clickedFields.delete(key);
+      } else {
+        this.clickedFields.add(key);
+      }
+      
+      this.ss.FinalArray=this.anotherArray;
+      console.log('fffinal',this.ss.FinalArray);
+    }else{
+      this.uncheckedCheckboxes[id]=field;
+      console.log('Updated uncheckedCheckboxes:', this.uncheckedCheckboxes);
+      console.log('Clicked field',id)
+
+      const key = `${id}-${field}`;
+      if (this.clickedFields.has(key)) {
+        this.clickedFields.delete(key);
+      } else {
+        this.clickedFields.add(key);
+      }
+      
+      this.ss.uncheckedJsonFinal=this.uncheckedCheckboxes;
+      console.log('fffinal',this.ss.FinalArray);
     }
-  
-    
-    this.anotherArray[id]=field;
-
-
-
-    console.log('Updated anotherArray:', this.anotherArray);
-    console.log('Clicked field',id)
-
-    const key = `${id}-${field}`;
-    if (this.clickedFields.has(key)) {
-      this.clickedFields.delete(key);
-    } else {
-      this.clickedFields.add(key);
-    }
-    
-    this.ss.FinalArray=this.anotherArray;
-    console.log('fffinal',this.ss.FinalArray);
   }
   
   isFieldClicked(id: string, field: string): boolean {
@@ -83,19 +92,10 @@ export class JsonComponent {
   //    this.addToAnotherArray(id,field);
   //    this.toggleButtonStatus(field1);
   // }
-  toggleEditMode(row: any, i: any) {
-    row.editMode = !row.editMode; 
-    if (!row.editMode) {
-      
-      const index = this.transformedJson.findIndex((element: any) => element.id === row.id);
-      if (index !== -1) {
-        const s = this.transformedJson[index].id;
-        this.transformedJson[index].id = row.id;
-        console.log(i)
-        console.log(this.transformedJson[index].predicted[i])
-        this.transformedJson[index].predicted[i] = row.predicted[i];
-        //this.updatearray(this.transformedJson);
-        }
+  toggleEditMode(row: any) {
+    row.editMode = !row.editMode;
+    if (!row.editMode && row.predicted.indexOf(this.anotherArray[row.id])==-1) {
+      row.predicted=[this.anotherArray[row.id]].concat(row.predicted)
     }
   }
 
@@ -256,6 +256,21 @@ export class JsonComponent {
         return false
       })
     }
+  }
+
+  toggleExtractMode(row:any){
+    if (!this.extractPatterns[row.id]){
+      this.extractPatterns[row.id]={
+        "extract":"",
+        "pattern":""
+      }
+    }else{
+      if (this.extractPatterns[row.id].editMode && this.extractPatterns[row.id].pattern==""){
+        delete this.extractPatterns[row.id]
+      }
+    }
+    this.extractPatterns[row.id].editMode=!this.extractPatterns[row.id].editMode
+    this.extractPatterns=this.ss.extractJson
   }
 
   }
