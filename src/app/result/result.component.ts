@@ -17,9 +17,11 @@ interface OtherOutputSchema{
   id:string,
   source:string,
   type:string,
-  derive:string,
-  pattern?:string,
-  extract?:string
+  derive:{
+    id:string,
+    pattern?:string,
+    extract?:string
+  }
 }
 @Component({
   selector: 'app-result',
@@ -61,9 +63,11 @@ export class ResultComponent {
         id: key.trim(),
         source: this.asset,
         type: this.type,
-        derive: this.ss.uncheckedJsonFinal[key].trim(),
-        ...(this.extractJson[key.trim()] && {pattern:this.extractJson[key.trim()].pattern}),
-        ...(this.extractJson[key.trim()] && {extract:this.extractJson[key.trim()].extract})
+        derive: {
+          id:this.ss.uncheckedJsonFinal[key].trim(),
+          ...(this.extractJson[key.trim()] && {pattern:this.extractJson[key.trim()].pattern}),
+          ...(this.extractJson[key.trim()] && {extract:this.extractJson[key.trim()].extract})
+        }
       });
     })
   }
