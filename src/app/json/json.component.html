@@ -98,8 +98,9 @@
             />
           </td>
           <td>
-            <ng-container *ngIf="!r.editMode">{{ r.id }}</ng-container>
-            <input *ngIf="r.editMode" type="text" [(ngModel)]="r.id" />
+            {{ r.id }}
+            <!-- <ng-container *ngIf="!r.editMode">{{ r.id }}</ng-container>
+            <input *ngIf="r.editMode" type="text" [(ngModel)]="r.id" /> -->
           </td>
           <td>
             <ng-container *ngIf="!r.editMode">

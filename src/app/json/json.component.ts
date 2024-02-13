@@ -54,26 +54,12 @@ export class JsonComponent {
       console.log('Updated anotherArray:', this.anotherArray);
       console.log('Clicked field',id)
 
-      const key = `${id}-${field}`;
-      if (this.clickedFields.has(key)) {
-        this.clickedFields.delete(key);
-      } else {
-        this.clickedFields.add(key);
-      }
-      
       this.ss.FinalArray=this.anotherArray;
       console.log('fffinal',this.ss.FinalArray);
     }else{
       this.uncheckedCheckboxes[id]=field;
       console.log('Updated uncheckedCheckboxes:', this.uncheckedCheckboxes);
       console.log('Clicked field',id)
-
-      const key = `${id}-${field}`;
-      if (this.clickedFields.has(key)) {
-        this.clickedFields.delete(key);
-      } else {
-        this.clickedFields.add(key);
-      }
       
       this.ss.uncheckedJsonFinal=this.uncheckedCheckboxes;
       console.log('fffinal',this.ss.FinalArray);
