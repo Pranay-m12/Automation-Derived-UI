@@ -12,7 +12,11 @@
   input {
     padding: 8px;
     margin-bottom: 10px;
+  }
+
+  .comp1input{
     width: 50%;
+    border-radius: 10px;
   }
   
   button {
