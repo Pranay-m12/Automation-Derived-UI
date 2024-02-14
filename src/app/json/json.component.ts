@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Service } from '../services';
 import { HttpClient } from '@angular/common/http';
-import { async } from 'rxjs/internal/scheduler/async';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import * as XLSX from 'xlsx';
 
@@ -20,6 +19,8 @@ interface result {
 export class JsonComponent {
   attributes: string = 'discipline_code,creation_date,handover_required,revision_date,company_name,cmpy_seq_nr,document_description_240,status_code,title,percentage_complete,publish_file,subclass_code,maintained_by,subclass_type_description,sucl_seq_nr,publication_file,handover_completed,RHLLEGDOC,document_url,document_nr,TITLE,subclass_description,proj_seq_nr,description,is_latest,latest_rev_creation_date,email_attachment_list,document_type_select,actual_start_month,clas_seq_nr,asst_seq_nr,publication_file_required,asset_code,RHLPROJECT,revision_creation_date_month,pk_seq_nr,class_code,document_remarks,docs_seq_nr,created_by,DOCUMENT_NUMBER,actual_start_date,doty_seq_nr,active_ind,default_asst_seq_nr,checked_out_ind,project_code,latest_revision_code,revision_creation_date_week,company_code,dost_seq_nr,latest_change_date_pub_file,revision_code,has_rev_outstanding_ce_copy,actual_start_date_week,last_refresh_date,revision_order,source_file_required,suty_seq_nr,discipline_description,latest_rev_creation_date_print,project_title,originator,source_file,actual_start_date_print,disc_seq_nr,actual_start_week,status_description,reco_seq_nr,class_description,asset_description,latest_dore_seq_nr,maintenance_date,company_document_nr,free_text_ind,subclass_type_code,document_type,document_type_description,latest_change_date_subq,latest_rev_creation_date_slt,swp_parent_string,dore_seq_nr,in_maintenance  ';
   fields: string = 'documentStatusCode,documentType,publishFile,isLatest,k2Handle, isActive,title,isCheckedOut,isLive,revision,project,documentStatusDescription,disciplineDescription,revisionFileName,revisionDate,plantCode,latestChangeDateSubq,discipline,dataStore,documentTypeDescription,externalLink,description  ';
+  // attributes:string='tagNo,piperun,equipName,eqpDescription,npd1,status,matmanStatus,systemPath,shortcode,npd2,fluidRequirement,fluidType,turnoverSystem,secondSizeSchedule,vuemdb2TaskFriendlyname,designMaxPressure,designMaxTemperature,nozzleName,materialSpec,oid,location,vuefilename,disciplineDescription,tagName,itemtag,projectTagClassName,lineNo,linktype,tagname,page,eqpType3,shapetype,groupidx,color,documentUrl,primaryP&IdNumber,revisionDate,productionCriticalItem  ';
+  // fields:string='tagno,tag,displayname,description,npd1,piperun,status,matmanstatus,systempath,shortcode,npd2,fluidrequirement,fluidtype,turnoversystem,secondsizeschedule,equipname,friendlyname,designpressuremaximum,designtemperaturemaximum,nozzlename,pipingclass,oid,plant,mainunit,processunit,location,v3Dtype,disciplinedescription,doctag,projectclass,line,linktype,code,page,equipmenttype3,shapetype,annotationindex,originalcolor,documenturl,doc,notrootdata,revisiondate,productioncritical  ';
   source:string = 'no:nhy';
   type:string = 'Document';
   data: any = '';
@@ -111,8 +112,13 @@ export class JsonComponent {
   // }
   toggleEditMode(row: any) {
     row.editMode = !row.editMode;
-    if (!row.editMode && row.predicted.indexOf(this.anotherArray[row.id])==-1) {
-      row.predicted=[this.anotherArray[row.id]].concat(row.predicted)
+    if (!row.editMode) {
+      if (row.id in this.anotherArray && row.predicted.indexOf(this.anotherArray[row.id])==-1){
+        row.predicted=[this.anotherArray[row.id]].concat(row.predicted)
+      }
+      if (row.id in this.uncheckedCheckboxes && row.predicted.indexOf(this.uncheckedCheckboxes[row.id])==-1){
+        row.predicted=[this.uncheckedCheckboxes[row.id]].concat(row.predicted)
+      }
     }
   }
 
@@ -151,11 +157,14 @@ export class JsonComponent {
        
         this.transformedJson = Object.keys(this.data).map((key) => ({
           id: key,
-          predicted: this.flattenAndFilterUndefined([
-            this.data[key].both,
-            this.data[key].edit[0],
+          predicted: [
+            ...this.data[key].both,
             this.data[key].model[0],
-            this.data[key]["model&edit"][0],]),
+            this.data[key].edit[0],
+            ...this.data[key]["model&edit"]
+          ].filter((value, index, self) => {
+              return value!=undefined && self.indexOf(value) === index;
+            }),
         }));
         console.log('Transformed JSON:', this.transformedJson);
         this.ss.transformedJsonfinal = this.transformedJson;
@@ -180,10 +189,6 @@ export class JsonComponent {
     });
     this.ss.FinalArray=this.anotherArray;
     console.log('fffinal1',this.ss.FinalArray);
-  }
-  private flattenAndFilterUndefined(arrays: (any[] | undefined)[]): any[] {
-    return arrays.reduce<any[]>((acc, current) => acc.concat(current || []), []).filter((value) => value !== undefined).filter((value, index, self) => self.indexOf(value) === index);
-  
   }
   showTextbox = true;
 

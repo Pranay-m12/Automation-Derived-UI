@@ -140,7 +140,7 @@
             <input
               *ngIf="r.editMode"
               type="text"
-              [(ngModel)]="anotherArray[r.id]"
+              [(ngModel)]="anotherArray[r.id] || uncheckedCheckboxes[r.id]"
             />
             <ng-container *ngIf="extractPatterns[r.id]">
               <hr/>Extract : 
@@ -151,14 +151,14 @@
           <td>
             <button
               title="Click here to edit data"
-              style="margin-right: 3px"
+              style="margin: 1px 2px"
               (click)="toggleEditMode(r)"
             >
               <i class="bi bi-check" *ngIf="r.editMode"></i>
               <i class="bi bi-pencil-square" *ngIf="!r.editMode"></i>
             </button>
             <button
-              type="button"
+              style="margin: 1px 3px"
               title="Click here to add extract pattern"
               (click)="toggleExtractMode(r)"
             >

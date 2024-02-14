@@ -14,14 +14,13 @@ interface DerivedOutputSchema{
 }
 
 interface OtherOutputSchema{
-  id:string,
   source:string,
   type:string,
-  derive:{
+  derive:{[id:string]:{
     id:string,
     pattern?:string,
     extract?:string
-  }
+  }}
 }
 @Component({
   selector: 'app-result',
@@ -38,7 +37,7 @@ export class ResultComponent {
   extractJson:{[id:string]:any}={};
 
   derivedOutput!:DerivedOutputSchema;
-  otherOutput:Array<OtherOutputSchema>=[];
+  otherOutput!:OtherOutputSchema;
   arr:Array<fieldArr>=[];
 
   Create_task(){
@@ -57,18 +56,17 @@ export class ResultComponent {
     })
     this.derivedOutput={source:this.asset,type:this.type,rules:this.arr}
     //For other output
-    this.otherOutput=[]
+    this.otherOutput={
+      source:this.asset,
+      type:this.type,
+      derive:{}
+    }
     Object.keys(this.ss.uncheckedJsonFinal).forEach(key=>{
-      this.otherOutput.push({
-        id: key.trim(),
-        source: this.asset,
-        type: this.type,
-        derive: {
-          id:this.ss.uncheckedJsonFinal[key].trim(),
-          ...(this.extractJson[key.trim()] && {pattern:this.extractJson[key.trim()].pattern}),
-          ...(this.extractJson[key.trim()] && {extract:this.extractJson[key.trim()].extract})
-        }
-      });
+      this.otherOutput.derive[key.trim()]={
+        id:this.ss.uncheckedJsonFinal[key].trim(),
+        ...(this.extractJson[key.trim()] && {pattern:this.extractJson[key.trim()].pattern}),
+        ...(this.extractJson[key.trim()] && {extract:this.extractJson[key.trim()].extract})
+      };
     })
   }
 
