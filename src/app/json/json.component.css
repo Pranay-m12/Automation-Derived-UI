@@ -116,7 +116,7 @@
     margin-left: auto;
     width: 100%;
     margin-right: 10px;
-    border: 2px solid black;
+    border: 2px solid #3f51b5;
     border-radius: 10px;
   }
 
@@ -126,12 +126,14 @@
   }
 
   .matTabBody{
-    background-color: red;
+    font-weight: bold!important;
   }
 
   ::ng-deep .mat-tab-group {
     overflow: hidden;
   }
+
+
 
   
 

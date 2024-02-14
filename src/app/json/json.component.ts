@@ -263,6 +263,7 @@ export class JsonComponent {
 
   toggleSearch(){
     this.searchFieldBool=!this.searchFieldBool;
+    this.searchtransformedJson=this.transformedJson
   }
 
   searchField(searchName:string,field:boolean){

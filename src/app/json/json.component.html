@@ -133,7 +133,7 @@
 
   <div style="width: 100%">
     <div style="width: 80%">
-      <mat-slide-toggle (click)="toggleSearch()" style="margin-left: auto">
+      <mat-slide-toggle (click)="toggleSearch()" style="margin-left: auto;">
         <input
           *ngIf="searchFieldBool"
           placeholder="Seach for field here"
@@ -156,7 +156,7 @@
           <th></th>
           <th>Fields</th>
           <th>Prediction</th>
-          <th>Action</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -216,7 +216,7 @@
               <i class="bi bi-pencil-square" *ngIf="!r.editMode"></i>
             </button>
             <button
-              style="margin: 1px 3px"
+              style="margin: 1px 2px"
               title="Click here to add extract pattern"
               (click)="toggleExtractMode(r)"
             >
