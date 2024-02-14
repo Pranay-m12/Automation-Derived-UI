@@ -1,24 +1,24 @@
 .textarea{
-  border: 1px solid black;
+  border: 1px solid #3f51b5;
   border-radius: 10px;
   padding: 10px;
   width: 100%;
   margin: 2px;
 }
 .textarea2{
-  border: 1px solid black;
+  border: 1px solid #3f51b5;
   border-radius: 10px;
   padding: 10px;
 }
 .ngx-json-viewer{
-  border: 1px solid black;
+  border: 1px solid #3f51b5;
   border-radius: 10px;
   padding: 10px;
   width: 100%;
   margin: 2px;
 }
 .taskcreate{
-  width: 25%;
+  width: 50%;
   margin: 5px 0;
 }
 .ngxClipboard{
@@ -54,6 +54,11 @@ pre {
   .key {
     color: #fff;
   } */
+}
+
+.container{
+  width: 85vw;
+  margin-bottom: 10px;
 }
 
 
