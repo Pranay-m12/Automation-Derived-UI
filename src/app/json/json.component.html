@@ -1,72 +1,133 @@
 <div>
-  <div>
+  <div class="inputbox">
     <br />
     <!--<mat-slide-toggle (click)="toggleView()">JSON</mat-slide-toggle> -->
     <br />
-    <mat-tab-group class="vertical-tab-group">
-      <mat-tab label="TextBox" > <br><div  class="textbox row">
-        <div class="col">
-          <label for="source">Enter Source:</label>
-          <input
-            type="text"
-            id="input1"
-            placeholder="Enter Source Name"
-            [(ngModel)]="source"
-          />
+    <mat-tab-group dynamicheight class="vertical-tab-group">
+      <mat-tab label="TextBox" class="matTabBody"> <br><div class="textbox">
+        <div class="row">
+          <div class="col">
+            <label for="source">Enter Source:</label>
+            <input
+              type="text"
+              id="source"
+              placeholder="Enter Source Name"
+              [(ngModel)]="source"
+              name="source"
+            />
+          </div>
+          <div class="col">
+            <label for="type">Enter Type:</label>
+            <input
+              type="text"
+              id="type"
+              placeholder="Enter Type"
+              [(ngModel)]="type"
+              name="type"
+            />
+          </div>
         </div>
-        <div class="col">
-          <label for="type">Enter Type:</label>
-          <input
-            type="text"
-            id="input1"
-            placeholder="Enter Type"
-            [(ngModel)]="type"
-          />
+        <div class="row">
+          <div class="col">
+            <label for="attributes">Enter Attributes:</label>
+            <input
+              type="text"
+              id="attributes"
+              placeholder="Enter Attributes"
+              [(ngModel)]="attributes"
+              name="attributes"
+            />
+          </div>
+          <div class="col">
+            <label for="fields">Enter Derived Property:</label>
+            <input
+              type="text"
+              id="fields"
+              placeholder="Enter Derived Property"
+              [(ngModel)]="fields"
+              name="fields"
+            />
+          </div>
         </div>
-        <div class="col">
-          <label for="input1">Enter Attributes:</label>
-          <input
-            type="text"
-            id="input1"
-            placeholder="Enter Attributes"
-            [(ngModel)]="attributes"
-          />
+      </div>
+      </mat-tab>
+      <mat-tab label="JSON" ><br> <div class="textbox">
+        <div class="row">
+          <div class="col">
+            <label for="source">Enter Source:</label>
+            <input
+              type="text"
+              id="source"
+              placeholder="Enter Source Name"
+              [(ngModel)]="source"
+              name="source"
+            />
+          </div>
+          <div class="col">
+            <label for="type">Enter Type:</label>
+            <input
+              type="text"
+              id="type"
+              placeholder="Enter Type"
+              [(ngModel)]="type"
+              name="type"
+            />
+          </div>
         </div>
-        <div class="col">
-          <label for="input2">Enter Derived Property:</label>
-          <input
+        <div class="row" >
+          <div class="col">
+            <label for="input1">(Attributes):</label>
+                <input type="file" (change)="onFileSelected($event)" />
+          </div>
+          <div class="col">
+            
+            <label for="input2">(Dervied):</label>
+                <input type="file" (change)="onFileSelected1($event)" />
+          </div>
+        </div>
+      </div>
+      </mat-tab>
+      <mat-tab label="CSV/Excel" ><br> <div class="textbox">
+        <div class="row">
+          <div class="col">
+            <label for="source">Enter Source:</label>
+            <input
+              type="text"
+              id="source"
+              placeholder="Enter Source Name"
+              [(ngModel)]="source"
+              name="source"
+            />
+          </div>
+          <div class="col">
+            <label for="type">Enter Type:</label>
+            <input
+              type="text"
+              id="type"
+              placeholder="Enter Type"
+              [(ngModel)]="type"
+              name="type"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+         <label for="input1">(Attributes):</label>
+                <input type="file" (change)="onFileSelected2($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+          </div>
+          <div class="col">
+            <label for="input2">(Dervied):</label>
+            <input
             type="text"
-            id="input2"
-            placeholder="Enter Dervied Property"
+            id="fields"
+            placeholder="Enter Derived Property"
             [(ngModel)]="fields"
+            name="fields"
           />
+          </div>
         </div>
-      </div></mat-tab>
-      <mat-tab label="JSON" ><br> <div  class="json row">
-        <div class="col">
-          <label for="input1">(Attributes):</label>
-          <input type="file" (change)="onFileSelected($event)" />
-        </div>
-        <div class="col">
-          <label for="input2">(Dervied):</label>
-          <input type="file" (change)="onFileSelected1($event)" />
-        </div>
-      </div></mat-tab>
-      <mat-tab label="CSV/Excel" ><br> <div  class="json row">
-        <div class="col">
-          <label for="input1">(Attributes):</label>
-          <input type="file" (change)="onFileSelected2($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-        </div>
-        <div class="col">
-          <label for="input2">(Dervied):</label>
-          <input
-          type="text"
-          id="input2"
-          placeholder="Enter Dervied Property"
-          [(ngModel)]="fields"
-        />
-        </div>
-      </div></mat-tab>
+      </div>
+      </mat-tab>
     </mat-tab-group>
     
    

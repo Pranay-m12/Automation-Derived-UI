@@ -22,6 +22,10 @@
     border: none;
     border-radius: 5px;
   }
+  .inputBox{
+    width: 70%;
+    height: 200px;
+  }
 
   .tablebutton{
     
@@ -46,7 +50,27 @@
   .vertical-tab-group {
     display: flex;
     flex-direction: column;
-    height: 400px; /* Set a fixed height or adjust as needed */
+    height: 370px; 
+    width: 750px;/* Set a fixed height or adjust as needed */
+  }
+ 
+  .textbox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .col {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .col:last-child {
+    margin-right: 0;
   }
   
   .mat-tab-label {
@@ -55,6 +79,7 @@
     width: 40px; /* Set a width for the tab labels */
     white-space: nowrap; /* Prevent text wrapping */
     margin-bottom: 8px; /* Add some space between tabs */
+    overflow: hidden;
   }
   
   .mat-tab-body-wrapper {
@@ -96,6 +121,14 @@
   .extractInput{
     margin: 2px 3px;
     border-radius: 10px;
+  }
+
+  .matTabBody{
+    background-color: red;
+  }
+
+  ::ng-deep .mat-tab-group {
+    overflow: hidden;
   }
 
   
