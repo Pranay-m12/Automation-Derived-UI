@@ -196,9 +196,14 @@
               </button>
             </ng-container>
             <input
-              *ngIf="r.editMode"
+              *ngIf="r.editMode && anotherArray[r.id]"
               type="text"
-              [(ngModel)]="anotherArray[r.id] || uncheckedCheckboxes[r.id]"
+              [(ngModel)]="anotherArray[r.id]"
+            />
+            <input
+              *ngIf="r.editMode && uncheckedCheckboxes[r.id]"
+              type="text"
+              [(ngModel)]="uncheckedCheckboxes[r.id]"
             />
             <ng-container *ngIf="extractPatterns[r.id]">
               <hr/>Extract : 
