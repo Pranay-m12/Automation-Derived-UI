@@ -11,7 +11,7 @@
               placeholder="Enter Source Name"
               [(ngModel)]="source"
               name="source"
-            />
+            required/> 
           </div>
           <div class="col">
             <label for="type">Enter Type:</label>
@@ -196,15 +196,15 @@
               </button>
             </ng-container>
             <input
-              *ngIf="r.editMode && anotherArray[r.id]"
+              *ngIf="r.editMode && anotherArray[r.id] !== undefined "
               type="text"
               [(ngModel)]="anotherArray[r.id]"
-            />
+            required/>
             <input
               *ngIf="r.editMode && uncheckedCheckboxes[r.id]"
               type="text"
               [(ngModel)]="uncheckedCheckboxes[r.id]"
-            />
+            required/>
             <ng-container *ngIf="extractPatterns[r.id]">
               <hr/>Extract : 
               <input class="extractInput" type="text" placeholder="Pattern" [(ngModel)]="extractPatterns[r.id].pattern" [disabled]="!extractPatterns[r.id].editMode"/>
