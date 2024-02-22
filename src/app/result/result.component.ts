@@ -16,11 +16,7 @@ interface DerivedOutputSchema{
 interface OtherOutputSchema{
   source:string,
   type:string,
-  derive:{[id:string]:{
-    id:string,
-    pattern?:string,
-    extract?:string
-  }}
+  derived:{[id:string]:string}
 }
 @Component({
   selector: 'app-result',
@@ -59,14 +55,10 @@ export class ResultComponent {
     this.otherOutput={
       source:this.asset,
       type:this.type,
-      derive:{}
+      derived:{}
     }
     Object.keys(this.ss.uncheckedJsonFinal).forEach(key=>{
-      this.otherOutput.derive[key.trim()]={
-        id:this.ss.uncheckedJsonFinal[key].trim(),
-        ...(this.extractJson[key.trim()] && {pattern:this.extractJson[key.trim()].pattern}),
-        ...(this.extractJson[key.trim()] && {extract:this.extractJson[key.trim()].extract})
-      };
+      this.otherOutput.derived[key.trim()]=this.ss.uncheckedJsonFinal[key].trim();
     })
   }
 

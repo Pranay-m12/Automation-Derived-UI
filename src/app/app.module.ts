@@ -6,19 +6,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ResultComponent } from './result/result.component';
-import { JsonComponent } from './json/json.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PrettyJsonPipe } from './result/jsonPipe';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableComponent } from './table/table.component';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ResultComponent,
-    JsonComponent,
-    PrettyJsonPipe
+    PrettyJsonPipe,
+    TableComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,

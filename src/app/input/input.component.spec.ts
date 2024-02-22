@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JsonComponent } from './json.component';
+import { InputComponent } from './input.component';
 
-describe('JsonComponent', () => {
-  let component: JsonComponent;
-  let fixture: ComponentFixture<JsonComponent>;
+describe('InputComponent', () => {
+  let component: InputComponent;
+  let fixture: ComponentFixture<InputComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonComponent]
+      declarations: [InputComponent]
     });
-    fixture = TestBed.createComponent(JsonComponent);
+    fixture = TestBed.createComponent(InputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

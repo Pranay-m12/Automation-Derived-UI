@@ -1,5 +1,4 @@
-<div>
-  <div class="inputbox">
+<div class="inputbox">
     <mat-tab-group dynamicheight class="vertical-tab-group">
       <mat-tab label="TextBox" class="matTabBody"> <br><div class="textbox">
         <div class="row">
@@ -11,6 +10,7 @@
               id="source"
               placeholder="Enter Source Name"
               [(ngModel)]="source"
+              (change)="inputChange()"
               name="source"
             required/> 
           </div>
@@ -22,6 +22,7 @@
               id="type"
               placeholder="Enter Type"
               [(ngModel)]="type"
+              (change)="inputChange()"
               name="type"
             />
           </div>
@@ -35,6 +36,7 @@
               id="attributes"
               placeholder="Enter Attributes"
               [(ngModel)]="attributes"
+              (change)="inputChange()"
               name="attributes"
             />
           </div>
@@ -46,6 +48,7 @@
               id="fields"
               placeholder="Enter Derived Property"
               [(ngModel)]="fields"
+              (change)="inputChange()"
               name="fields"
             />
           </div>
@@ -62,6 +65,7 @@
               id="source"
               placeholder="Enter Source Name"
               [(ngModel)]="source"
+              (change)="inputChange()"
               name="source"
             />
           </div>
@@ -73,6 +77,7 @@
               id="type"
               placeholder="Enter Type"
               [(ngModel)]="type"
+              (change)="inputChange()"
               name="type"
             />
           </div>
@@ -100,6 +105,7 @@
               id="source"
               placeholder="Enter Source Name"
               [(ngModel)]="source"
+              (change)="inputChange()"
               name="source"
             />
           </div>
@@ -111,6 +117,7 @@
               id="type"
               placeholder="Enter Type"
               [(ngModel)]="type"
+              (change)="inputChange()"
               name="type"
             />
           </div>
@@ -128,6 +135,7 @@
             id="fields"
             placeholder="Enter Derived Property"
             [(ngModel)]="fields"
+            (change)="inputChange()"
             name="fields"
           />
           </div>
@@ -135,113 +143,4 @@
       </div>
       </mat-tab>
     </mat-tab-group>
-    
-   
-    <button (click)="onClickTest()" style="width: 50%">Execute</button>
   </div>
-
-  <div style="width: 100%">
-    <div style="width: 80%">
-      <mat-slide-toggle (click)="toggleSearch()" style="margin-left: auto;">
-        <input
-          *ngIf="searchFieldBool"
-          placeholder="Seach for field here"
-          class="searchInput"
-          #search
-          (input)="searchField(search.value, true)"
-        />
-        <input
-          *ngIf="!searchFieldBool"
-          placeholder="Seach for attribute here"
-          class="searchInput"
-          #search
-          (input)="searchField(search.value, false)"
-        />
-      </mat-slide-toggle>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Fields</th>
-          <th>Prediction</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="let r of searchtransformedJson"
-          [ngStyle]="{
-            'background-color':
-              r.predicted.length == 0 ? 'rgba(233, 84, 84, 0.808)' : ''
-          }"
-        >
-          <td>
-            <input
-              type="checkbox"
-              [checked]="!uncheckedCheckboxes[r.id] && r.predicted.length != 0"
-              (change)="toggleCheckbox(r.id)"
-            />
-          </td>
-          <td>
-            {{ r.id }}
-            <!-- <ng-container *ngIf="!r.editMode">{{ r.id }}</ng-container>
-            <input *ngIf="r.editMode" type="text" [(ngModel)]="r.id" /> -->
-          </td>
-          <td>
-            <ng-container *ngIf="!r.editMode">
-              <button
-                [ngClass]="[
-                  'tablebutton',
-                  r.id,
-                  this.anotherArray[r.id] == field || this.uncheckedCheckboxes[r.id]==field
-                    ? 'tablebutton-clicked'
-                    : 'tablebutton-notclicked'
-                ]"
-                *ngFor="let field of r.predicted; let i = index"
-                (click)="addToAnotherArray(r.id, field)"
-              >
-                {{ field }}
-              </button>
-            </ng-container>
-            <input
-              *ngIf="r.editMode && anotherArray[r.id] !== undefined "
-              type="text"
-              [(ngModel)]="anotherArray[r.id]"
-            required/>
-            <input
-              *ngIf="r.editMode && uncheckedCheckboxes[r.id]"
-              type="text"
-              [(ngModel)]="uncheckedCheckboxes[r.id]"
-            required/>
-            <ng-container *ngIf="extractPatterns[r.id]">
-              <hr/>Extract : 
-              <input class="extractInput" type="text" placeholder="Pattern" [(ngModel)]="extractPatterns[r.id].pattern" [disabled]="!extractPatterns[r.id].editMode"/>
-              <input class="extractInput" type="text" placeholder="Extract value" [(ngModel)]="extractPatterns[r.id].extract" [disabled]="!extractPatterns[r.id].editMode"/>
-            </ng-container>
-          </td>
-          <td>
-            <button
-              title="Click here to edit data"
-              style="margin: 1px 2px"
-              (click)="toggleEditMode(r)"
-            >
-              <i class="bi bi-check" *ngIf="r.editMode"></i>
-              <i class="bi bi-pencil-square" *ngIf="!r.editMode"></i>
-            </button>
-            <button
-              style="margin: 1px 2px"
-              title="Click here to add extract pattern"
-              (click)="toggleExtractMode(r)"
-            >
-              <i class="bi bi-check" *ngIf="extractPatterns[r.id] && extractPatterns[r.id].editMode"></i>
-              <i class="bi bi-patch-plus" *ngIf="!(extractPatterns[r.id] && extractPatterns[r.id].editMode)"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- [ngStyle]="{'background-color': isFieldClicked(r.id, field) ? 'rgb(79, 242, 87)' : (isFieldClicked(r.id, r.predicted[0]) ? 'yellow' : (i === 0 ? 'rgb(79, 242, 87)' : 'yellow'))}" (click)="addToAnotherArray(r.id, field)" -->

@@ -1,0 +1,144 @@
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+    
+label {
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.comp1input{
+  width: 50%;
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+.inputBox{
+  width: 70%;
+}
+
+.tablebutton{
+    padding: 10px;
+    margin:1%;
+    color: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.5s ease-in,border 0.5s ease-in;
+}
+.tablebutton-clicked{
+  background-color:  rgb(79, 242, 87);
+}
+.tablebutton-notclicked{
+  background-color: rgb(240, 240, 80);
+}
+.tablebutton:hover{
+  background: white;
+  border: 1px solid rgb(79, 242, 87);
+}
+.vertical-tab-group {
+  display: flex;
+  flex-direction: column;
+  width: 85vw;/* Set a fixed height or adjust as needed */
+  border: 3px solid #3f51b5;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.textbox {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.mat-tab-label {
+  transform: rotate(-90deg); /* Rotate the tab labels vertically */
+  transform-origin: left center; /* Set the rotation origin */
+  width: 40px; /* Set a width for the tab labels */
+  white-space: nowrap; /* Prevent text wrapping */
+  margin-bottom: 8px; /* Add some space between tabs */
+  overflow: hidden;
+}
+
+.mat-tab-body-wrapper {
+  flex: 1; /* Allow the content to take up remaining space */
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+table {
+  width: 85vw;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.searchInput{
+  margin-left: auto;
+  width: 100%;
+  margin-right: 10px;
+  border: 2px solid #3f51b5;
+  border-radius: 10px;
+}
+
+.extractInput{
+  margin: 2px 3px;
+  border-radius: 10px;
+}
+
+.matTabBody{
+  font-weight: bold!important;
+}
+
+::ng-deep .mat-tab-group {
+  overflow: hidden;
+}
+
+
+
+
+
+
