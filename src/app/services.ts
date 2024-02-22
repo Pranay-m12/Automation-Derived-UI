@@ -8,6 +8,7 @@ export class Service {
   uncheckedJsonFinal:{ [id: string]: string }={};
   FinalArray: { [id: string]: string } = {};
   extractJson:{[id:string]:any}={};
+  demoData:{[id:string]:string}={};
   assetName:string="no:nyh";
   dataType:string="Document";
   attributes:string='tagNo,piperun,equipName,eqpDescription,npd1,status,matmanStatus,systemPath,shortcode,npd2,fluidRequirement,fluidType,turnoverSystem,secondSizeSchedule,vuemdb2TaskFriendlyname,designMaxPressure,designMaxTemperature,nozzleName,materialSpec,oid,location,vuefilename,disciplineDescription,tagName,itemtag,projectTagClassName,lineNo,linktype,tagname,page,eqpType3,shapetype,groupidx,color,documentUrl,primaryP&IdNumber,revisionDate,productionCriticalItem  ';
