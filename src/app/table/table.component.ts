@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, TemplateRef } from '@angular/core';
 import { Service } from '../services';
 import { HttpClient } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-table',
@@ -20,6 +21,12 @@ export class TableComponent {
   uncheckedCheckboxes:  { [id: string]: string } = {};
   extractPatterns:{[id:string]:any}={};
   clickedFields: Set<string> = new Set<string>();
+
+  private modalService = inject(NgbModal);
+
+  openVerticallyCentered(content: TemplateRef<any>) {
+		this.modalService.open(content, { centered: true });
+	}
 
   
   editField(id: string) {
@@ -175,18 +182,18 @@ export class TableComponent {
     }
   }
 
-  toggleExtractMode(row:any){
-    if (!this.extractPatterns[row.id]){
-      this.extractPatterns[row.id]={
-        "extract":"",
-        "pattern":""
-      }
-    }else{
-      if (this.extractPatterns[row.id].editMode && this.extractPatterns[row.id].pattern==""){
-        delete this.extractPatterns[row.id]
-      }
-    }
-    this.extractPatterns[row.id].editMode=!this.extractPatterns[row.id].editMode
-    this.extractPatterns=this.ss.extractJson
-  }
+  // toggleExtractMode(row:any){
+  //   if (!this.extractPatterns[row.id]){
+  //     this.extractPatterns[row.id]={
+  //       "extract":"",
+  //       "pattern":""
+  //     }
+  //   }else{
+  //     if (this.extractPatterns[row.id].editMode && this.extractPatterns[row.id].pattern==""){
+  //       delete this.extractPatterns[row.id]
+  //     }
+  //   }
+  //   this.extractPatterns[row.id].editMode=!this.extractPatterns[row.id].editMode
+  //   this.extractPatterns=this.ss.extractJson
+  // }
 }

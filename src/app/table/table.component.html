@@ -73,11 +73,6 @@
               type="text"
               [(ngModel)]="uncheckedCheckboxes[r.id]"
             required/>
-            <ng-container *ngIf="extractPatterns[r.id]">
-              <hr/>Extract : 
-              <input class="extractInput" type="text" placeholder="Pattern" [(ngModel)]="extractPatterns[r.id].pattern" [disabled]="!extractPatterns[r.id].editMode"/>
-              <input class="extractInput" type="text" placeholder="Extract value" [(ngModel)]="extractPatterns[r.id].extract" [disabled]="!extractPatterns[r.id].editMode"/>
-            </ng-container>
           </td>
           <td>
             <button
@@ -91,13 +86,32 @@
             <button
               style="margin: 1px 2px"
               title="Click here to add extract pattern"
-              (click)="toggleExtractMode(r)"
             >
-              <i class="bi bi-check" *ngIf="extractPatterns[r.id] && extractPatterns[r.id].editMode"></i>
-              <i class="bi bi-patch-plus" *ngIf="!(extractPatterns[r.id] && extractPatterns[r.id].editMode)"></i>
+              <i class="bi bi-patch-plus" (click)="openVerticallyCentered(content)"></i>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Input Pattern Extraction</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div class="container" style="display: flex;flex-direction: column;">
+        Demo Input : <input class="extractInput" type="text" placeholder="Demo Input Goes here"/>
+        Extract Pattern : <input class="extractInput" type="text" placeholder="Pattern" />
+        Extract Value : <input class="extractInput" type="text" placeholder="Extract value"/>
+        <br>
+        Demo Result : <input class="extractInput" type="text" placeholder="Demo result will be shown here" disabled/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary">Save pattern</button>
+    </div>
+  </ng-template>
